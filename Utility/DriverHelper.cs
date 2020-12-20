@@ -9,7 +9,7 @@ namespace BitwardenAutomation.Utility
 {
     public class DriverHelper
     {
-        public static IWebDriver driver;
+        private static IWebDriver driver;
 
         // public IWebDriver Driver { get; set; }
         public static IWebDriver Driver
