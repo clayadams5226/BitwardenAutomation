@@ -17,8 +17,11 @@ namespace BitwardenAutomation
         [SetUp]
         public void Setup()
         {
+
             DriverHelper.InitBrowser();
-            Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
+
+            Driver.Navigate().GoToUrl("https://mailsac.com/login");
+            //Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
         }
 
         [Test]
@@ -52,9 +55,21 @@ namespace BitwardenAutomation
             Thread.Sleep(3000);
 
             loginPage.ClickHint();
-            hintPage.enterEmail(email);
+            hintPage.enterEmail("bitwarden@mailsac.com");
             hintPage.clickSubmit();
             //TODO Check email 
+        }
+
+        [Test]
+        public void checkMail()
+        {
+            MailSac mailSac = new MailSac();
+            mailSac.LogIn("mad5226", "password01");
+            Thread.Sleep(3000);
+            mailSac.clickMailBox();
+            mailSac.IsEmailReceived("Your Master Password Hint");
+
+          //  Assert.That(mailSac.IsEmailReceived, Is.True, "Can't find the email");
         }
     }
 }
