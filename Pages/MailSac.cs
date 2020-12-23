@@ -16,6 +16,8 @@ namespace BitwardenAutomation.Pages
 
         IWebElement lnkMailBox => Driver.FindElement(By.LinkText("bitwarden@mailsac.com"));
 
+        IWebElement subject => Driver.FindElement(By.CssSelector("body > div > div.container-fluid > div.ng-scope > div > div.row > div > table > tbody > tr.clickable.ng-scope > td.col-xs-5.ng-binding"));
+
 
         public void LogIn(string userName, string password)
         {
@@ -36,26 +38,14 @@ namespace BitwardenAutomation.Pages
         {
             bool emailReceived = false;
 
-            List<string> subjects = new List<string>();
-           // List<IWebElement> subject => Driver.FindElement(By.ClassName("abc"));
-
-            for (int i = 0; i < subjects.Count; i++)
-            //for (int i = 0; i < list_Subjects.size(); i++)
             {
-                if (subjects.Equals(subjectOfEmail))
-                //if (subjects.get(i).getText().equalsIgnoreCase(subjectOfEmail))
+                if (subject.Text.Equals(subjectOfEmail))
                 {
                     emailReceived = true;
-                    break;
-                }
-
-                if (emailReceived)
-                {
-                    break;
                 }
             }
-            
-    return emailReceived;
+
+            return emailReceived;
         }
     }
 }

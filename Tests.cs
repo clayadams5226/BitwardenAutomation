@@ -19,15 +19,46 @@ namespace BitwardenAutomation
         {
 
             DriverHelper.InitBrowser();
-
-            Driver.Navigate().GoToUrl("https://mailsac.com/login");
-            //Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
+            Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
         }
 
-        [Test]
+        [Test, Order(1)]
+        public void passwordHint()
+        {
+            LoginPage loginPage = new LoginPage();
+            HintPage hintPage = new HintPage();
+
+            //Change to implicent wait and put into method
+            Thread.Sleep(3000);
+
+            loginPage.ClickHint();
+            hintPage.enterEmail("bitwarden@mailsac.com");
+            hintPage.clickSubmit();
+            hintPage.clickCancel();
+            //TODO Check email 
+        }
+
+        [Test, Order(2)]
+        public void checkMail()
+        {
+            DriverHelper.InitBrowser();
+            Driver.Navigate().GoToUrl("https://mailsac.com/login");
+
+            MailSac mailSac = new MailSac();
+            mailSac.LogIn("mad5226", "password01");
+            Thread.Sleep(3000);
+            mailSac.clickMailBox();
+            mailSac.IsEmailReceived("Your Master Password Hint");
+
+            //TODO: Delete email after confirming
+
+            //  Assert.That(mailSac.IsEmailReceived, Is.True, "Can't find the email");
+        }
+
+        [Test, Order(3)]
         public void Login()
         {
-            
+
 
             //Change to implicent wait and put into method
             Thread.Sleep(1000);
@@ -43,33 +74,6 @@ namespace BitwardenAutomation
 
             Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
 
-        }
-
-        [Test]
-        public void passwordHint()
-        {
-            LoginPage loginPage = new LoginPage();
-            HintPage hintPage = new HintPage();
-
-            //Change to implicent wait and put into method
-            Thread.Sleep(3000);
-
-            loginPage.ClickHint();
-            hintPage.enterEmail("bitwarden@mailsac.com");
-            hintPage.clickSubmit();
-            //TODO Check email 
-        }
-
-        [Test]
-        public void checkMail()
-        {
-            MailSac mailSac = new MailSac();
-            mailSac.LogIn("mad5226", "password01");
-            Thread.Sleep(3000);
-            mailSac.clickMailBox();
-            mailSac.IsEmailReceived("Your Master Password Hint");
-
-          //  Assert.That(mailSac.IsEmailReceived, Is.True, "Can't find the email");
         }
     }
 }
