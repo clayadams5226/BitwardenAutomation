@@ -22,7 +22,7 @@ namespace BitwardenAutomation
             Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
         }
 
-        [Test, Order(1)]
+        [Test]
         public void passwordHint()
         {
             LoginPage loginPage = new LoginPage();
@@ -38,7 +38,7 @@ namespace BitwardenAutomation
             //TODO Check email 
         }
 
-        [Test, Order(2)]
+        [Test]
         public void checkMail()
         {
             DriverHelper.InitBrowser();
@@ -55,7 +55,7 @@ namespace BitwardenAutomation
             //  Assert.That(mailSac.IsEmailReceived, Is.True, "Can't find the email");
         }
 
-        [Test, Order(3)]
+        [Test]
         public void Login()
         {
 
