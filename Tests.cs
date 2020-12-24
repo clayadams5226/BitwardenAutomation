@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using BitwardenAutomation.Utility;
 using BitwardenAutomation.Pages;
 using System.Threading;
+using System.IO;
 
 namespace BitwardenAutomation
 {
@@ -14,35 +15,41 @@ namespace BitwardenAutomation
         string email = "cadams+test2@bitwarden.com";
         string password = "password01";
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
-        {
-
+        {  
             DriverHelper.InitBrowser();
             Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
         }
 
-        [Test]
+      
+  [Test]
         public void passwordHint()
         {
             LoginPage loginPage = new LoginPage();
             HintPage hintPage = new HintPage();
 
-            //Change to implicint Wait
+            //TODO Change to implicint Wait
             Thread.Sleep(3000);
             loginPage.ClickHint();
             hintPage.enterEmail("bitwarden@mailsac.com");
             hintPage.clickSubmit();
             hintPage.clickCancel();
+
+            //TODO Set this up in a new Tab
             Driver.Navigate().GoToUrl("https://mailsac.com/login");
             MailSac mailSac = new MailSac();
             mailSac.LogIn("mad5226", "password01");
             Thread.Sleep(3000);
             mailSac.clickMailBox();
             bool emailRecieved = mailSac.IsEmailReceived("Your Master Password Hint");
-            //TODO: Delete email after confirming
+            //TODO: Delete email after confirming, Close Tab and Continue testing
             Assert.That(emailRecieved, Is.True, "Can't find the email");
+            //TODO: Change to only take screenshot of failed test cases
+            GetScreenshot.TakeScreenshot();
+            
         }
+      
 
         [Test]
         public void Login()
@@ -58,9 +65,10 @@ namespace BitwardenAutomation
             loginPage.ClickLogin();
 
             //Change to implicent wait and put into method
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
 
             Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
+            GetScreenshot.TakeScreenshot();
 
         }
 
@@ -69,14 +77,13 @@ namespace BitwardenAutomation
         {
             Thread.Sleep(1000);
 
-            LoginPage loginPage = new LoginPage();
             VaultPage vaultPage = new VaultPage();
 
-            loginPage.EnterUserNameAndPassword(email, password);
-            loginPage.ClickLogin();
+          //  loginPage.EnterUserNameAndPassword(email, password);
+        //    loginPage.ClickLogin();
 
             //Change to implicent wait and put into method
-            Thread.Sleep(10000);
+        //    Thread.Sleep(10000);
             vaultPage.ClickFavorites();
             vaultPage.clickTrash();
             vaultPage.ClickLogin();
@@ -88,6 +95,7 @@ namespace BitwardenAutomation
             vaultPage.ClickAllItems();
 
             Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
+            GetScreenshot.TakeScreenshot();
 
 
         }
