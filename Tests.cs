@@ -29,8 +29,7 @@ namespace BitwardenAutomation
             LoginPage loginPage = new LoginPage();
             HintPage hintPage = new HintPage();
 
-            //TODO Change to implicint Wait
-            Thread.Sleep(3000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             loginPage.ClickHint();
             hintPage.enterEmail("bitwarden@mailsac.com");
             hintPage.clickSubmit();
@@ -55,8 +54,7 @@ namespace BitwardenAutomation
         public void Login()
         {
 
-            //Change to implicent wait and put into method
-            Thread.Sleep(1000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             LoginPage loginPage = new LoginPage();
             VaultPage vaultPage = new VaultPage();
@@ -64,8 +62,7 @@ namespace BitwardenAutomation
             loginPage.EnterUserNameAndPassword(email, password);
             loginPage.ClickLogin();
 
-            //Change to implicent wait and put into method
-            Thread.Sleep(8000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
             GetScreenshot.TakeScreenshot();
@@ -75,22 +72,15 @@ namespace BitwardenAutomation
         [Test]
         public void SideBar()
         {
-            Thread.Sleep(1000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             VaultPage vaultPage = new VaultPage();
-
-          //  loginPage.EnterUserNameAndPassword(email, password);
-        //    loginPage.ClickLogin();
-
-            //Change to implicent wait and put into method
-        //    Thread.Sleep(10000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             vaultPage.ClickFavorites();
             vaultPage.clickTrash();
             vaultPage.ClickLogin();
             vaultPage.ClickCard();
             vaultPage.ClickIdentity();
-
-            //Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault?type=4", "Identity URL doesn't match");
             vaultPage.ClickSecureNote();
             vaultPage.ClickAllItems();
 
