@@ -7,6 +7,7 @@ using BitwardenAutomation.Utility;
 using BitwardenAutomation.Pages;
 using System.Threading;
 using System.IO;
+using System.Linq;
 
 namespace BitwardenAutomation
 {
@@ -23,7 +24,7 @@ namespace BitwardenAutomation
         }
 
       
-  [Test]
+  [Test, Order(1)]
         public void passwordHint()
         {
             LoginPage loginPage = new LoginPage();
@@ -35,25 +36,32 @@ namespace BitwardenAutomation
             hintPage.clickSubmit();
             hintPage.clickCancel();
 
-            //TODO Set this up in a new Tab
+            /*
+             TODO Set this up in a new Tab
+             Driver.FindElement(By.TagName("body")).SendKeys(Keys.Control + "t");
+             Driver.SwitchTo().Window(Driver.WindowHandles.Last());
+            */
+
             Driver.Navigate().GoToUrl("https://mailsac.com/login");
             MailSac mailSac = new MailSac();
             mailSac.LogIn("mad5226", "password01");
             Thread.Sleep(3000);
             mailSac.clickMailBox();
             bool emailRecieved = mailSac.IsEmailReceived("Your Master Password Hint");
+
             //TODO: Delete email after confirming, Close Tab and Continue testing
             Assert.That(emailRecieved, Is.True, "Can't find the email");
+
             //TODO: Change to only take screenshot of failed test cases
             GetScreenshot.TakeScreenshot();
             
         }
       
 
-        [Test]
+        [Test, Order(2)]
         public void Login()
         {
-
+            Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             LoginPage loginPage = new LoginPage();
@@ -64,12 +72,12 @@ namespace BitwardenAutomation
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-            Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
+            Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
             GetScreenshot.TakeScreenshot();
 
         }
-
-        [Test]
+/*
+        [Test, Order(3)]
         public void SideBar()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -84,10 +92,28 @@ namespace BitwardenAutomation
             vaultPage.ClickSecureNote();
             vaultPage.ClickAllItems();
 
-            Assert.AreEqual(vaultPage.getURL(), "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
+            Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
             GetScreenshot.TakeScreenshot();
 
 
         }
+*/
+        [Test, Order(4)]
+        public void LockVault()
+        {
+            NavBar navBar = new NavBar();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            navBar.ClickLockNow();
+            Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/lock", "URL doesn't match");
+        }
+        [Test, Order(5)]
+        public void LogOut()
+        {
+            NavBar navBar = new NavBar();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            navBar.ClickLogOut();
+            Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/", "URL doesn't match");
+        }
+
     }
 }
