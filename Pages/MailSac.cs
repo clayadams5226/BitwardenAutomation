@@ -15,6 +15,7 @@ namespace BitwardenAutomation.Pages
         IWebElement btnSignIn => Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[1]/div/div/div/form/button"));
 
         IWebElement lnkMailBox => Driver.FindElement(By.LinkText("bitwarden@mailsac.com"));
+        IWebElement lnkMailBox2 => Driver.FindElement(By.LinkText("bitwarden2@mailsac.com"));
 
         IWebElement subject => Driver.FindElement(By.CssSelector("body > div > div.container-fluid > div.ng-scope > div > div.row > div > table > tbody > tr.clickable.ng-scope > td.col-xs-5.ng-binding"));
 
@@ -32,6 +33,10 @@ namespace BitwardenAutomation.Pages
         public void clickMailBox()
         {
             lnkMailBox.Click();
+        }
+        public void clickMailBox2()
+        {
+            lnkMailBox2.Click();
         }
 
         public bool IsEmailReceived(String subjectOfEmail)

@@ -13,8 +13,8 @@ namespace BitwardenAutomation.Pages
         IWebElement lnkHint => Driver.FindElement(By.LinkText("Get master password hint"));
         IWebElement chkRemember => Driver.FindElement(By.Id("rememberEmail"));
         IWebElement btnLogin => Driver.FindElement(By.XPath("/html/body/app-root/app-frontend-layout/app-login/form/div/div/div/div/div[4]/button"));
-        IWebElement btnCreateAccount => Driver.FindElement(By.XPath("/html/body/app-root/app-frontend-layout/app-login/form/div/div/div/div/div[4]/a"));
-        IWebElement btnSSO => Driver.FindElement(By.XPath("/html/body/app-root/app-frontend-layout/app-login/form/div/div/div/div/div[5]/a"));
+        IWebElement btnCreateAccount => Driver.FindElement(By.CssSelector("body > app-root > app-frontend-layout > app-login > form > div > div > div > div > div:nth-child(5) > a"));
+        IWebElement btnSSO => Driver.FindElement(By.CssSelector("body > app-root > app-frontend-layout > app-login > form > div > div > div > div > div:nth-child(6) > a"));
 
         public void EnterUserNameAndPassword(string userName, string password)
         {
@@ -46,6 +46,19 @@ namespace BitwardenAutomation.Pages
         public void ClickSSO()
         {
             btnSSO.Click();
+        }
+
+        public bool FailedLogin()
+        {
+            try
+            {
+                Driver.FindElement(By.CssSelector(".toast"));
+            }   
+            catch (NoSuchElementException e)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
