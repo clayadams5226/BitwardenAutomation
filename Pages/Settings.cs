@@ -9,7 +9,7 @@ namespace BitwardenAutomation.Pages
     class Settings : DriverHelper
     {
         IWebElement btnDeleteAccount => Driver.FindElement(By.CssSelector("button.btn-outline-danger:nth-child(4)"));
-        IWebElement txtMasterPassword => Driver.FindElement(By.CssSelector("#masterPassword"));
+        IWebElement txtMasterPassword => Driver.FindElement(By.XPath("//*[@id=\"masterPassword\"]"));
         IWebElement btnConfirmDelete => Driver.FindElement(By.CssSelector("button.btn:nth-child(1)"));
 
         public void ClickDeleteAccount()
@@ -18,7 +18,8 @@ namespace BitwardenAutomation.Pages
         }
         public void ConfirmDeleteAccount(string password)
         {
-            txtMasterPassword.SendKeys(password);
+
+            txtMasterPassword.SendKeys("password01");
             btnConfirmDelete.Click();
             
         }
