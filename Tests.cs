@@ -155,7 +155,6 @@ namespace BitwardenAutomation
             GetScreenshot.TakeScreenshot();
         }
         
-        /* TODO: This this to work
         [Test, Order(7)]
         public void DeleteAccount()
         {
@@ -173,10 +172,10 @@ namespace BitwardenAutomation
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             settings.ClickDeleteAccount();
 
-            settings.ConfirmDeleteAccount("password01");
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            settings.ConfirmDeleteAccount();
+            Thread.Sleep(3000);
             Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/", "URL doesn't match");
         }
-        */
+        
     }
 }
