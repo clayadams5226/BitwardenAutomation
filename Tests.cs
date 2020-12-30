@@ -164,15 +164,17 @@ namespace BitwardenAutomation
             LoginPage loginPage = new LoginPage();
             NavBar navBar = new NavBar();
             Settings settings = new Settings();
+            string emailAddress = "bitwarden2@mailsac.com";
+            string password = "password01";
 
-            loginPage.EnterUserNameAndPassword("bitwarden2@mailsac.com", "password01");
+            loginPage.EnterUserNameAndPassword(emailAddress, password);
             loginPage.ClickLogin();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             navBar.ClickMyAccount();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             settings.ClickDeleteAccount();
 
-            settings.ConfirmDeleteAccount();
+            settings.ConfirmDeleteAccount(password);
             Thread.Sleep(3000);
             Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/", "URL doesn't match");
         }
