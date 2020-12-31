@@ -47,15 +47,13 @@ namespace BitwardenAutomation
             MailSac mailSac = new MailSac();
             mailSac.LogIn("mad5226", "password01");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            mailSac.clickMailBox();
+            mailSac.ClickMaiBox();
             bool emailRecieved = mailSac.IsEmailReceived("Your Master Password Hint");
-
-            //TODO: Delete email after confirming, Close Tab and Continue testing
             Assert.That(emailRecieved, Is.True, "Can't find the email");
-
             //TODO: Change to only take screenshot of failed test cases
             GetScreenshot.TakeScreenshot();
-            
+            mailSac.DeleteEmail();
+
         }
 
         [Test, Order(2)]
@@ -145,14 +143,13 @@ namespace BitwardenAutomation
             MailSac mailSac = new MailSac();
             mailSac.LogIn("mad5226", "password01");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            mailSac.clickMailBox2();
+            mailSac.ClickMailBox2();
             bool emailRecieved = mailSac.IsEmailReceived("Welcome");
 
-            //TODO: Delete email after confirming, Close Tab and Continue testing
             Assert.That(emailRecieved, Is.True, "Can't find the email");
-
             //TODO: Change to only take screenshot of failed test cases
             GetScreenshot.TakeScreenshot();
+            mailSac.DeleteEmail();
         }
         
         [Test, Order(7)]

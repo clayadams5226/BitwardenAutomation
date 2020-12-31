@@ -17,8 +17,9 @@ namespace BitwardenAutomation.Pages
         IWebElement lnkMailBox => Driver.FindElement(By.LinkText("bitwarden@mailsac.com"));
         IWebElement lnkMailBox2 => Driver.FindElement(By.LinkText("bitwarden2@mailsac.com"));
 
-        IWebElement subject => Driver.FindElement(By.CssSelector("body > div > div.container-fluid > div.ng-scope > div > div.row > div > table > tbody > tr.clickable.ng-scope > td.col-xs-5.ng-binding"));
-
+        IWebElement lnksubject => Driver.FindElement(By.CssSelector("body > div > div.container-fluid > div.ng-scope > div > div.row > div > table > tbody > tr.clickable.ng-scope > td.col-xs-5.ng-binding"));
+        IWebElement btnDeleteMail => Driver.FindElement(By.CssSelector("body > div > div.container-fluid > div.ng-scope > div > div.row > div > table > tbody > tr:nth-child(2) > td.active.not-clickable > div.btn-group.pull-right > button:nth-child(4)"));
+        IWebElement btnConfirmDelete => Driver.FindElement(By.CssSelector("body > div > div.container-fluid > div.ng-scope > div > div.row > div > table > tbody > tr:nth-child(2) > td.active.not-clickable > div.btn-group.pull-right > button:nth-child(5)"));
 
         public void LogIn(string userName, string password)
         {
@@ -30,13 +31,25 @@ namespace BitwardenAutomation.Pages
 
         }
 
-        public void clickMailBox()
+        public void ClickMaiBox()
         {
             lnkMailBox.Click();
         }
-        public void clickMailBox2()
+        public void ClickMailBox2()
         {
             lnkMailBox2.Click();
+        }
+        public void ClickMail()
+        {
+            lnksubject.Click();
+        }
+        public void ClickDelete()
+        {
+            btnDeleteMail.Click();
+        }
+        public void ConfirmDelete()
+        {
+            btnConfirmDelete.Click();
         }
 
         public bool IsEmailReceived(String subjectOfEmail)
@@ -44,13 +57,20 @@ namespace BitwardenAutomation.Pages
             bool emailReceived = false;
 
             {
-                if (subject.Text.Equals(subjectOfEmail))
+                if (lnksubject.Text.Equals(subjectOfEmail))
                 {
                     emailReceived = true;
                 }
             }
 
             return emailReceived;
+        }
+
+        public void DeleteEmail()
+        {
+            ClickMail();
+            ClickDelete();
+            ConfirmDelete();
         }
     }
 }
