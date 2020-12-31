@@ -16,6 +16,7 @@ namespace BitwardenAutomation.Pages
         IWebElement lnkCard => Driver.FindElement(By.LinkText("Card"));
         IWebElement lnkIdentity => Driver.FindElement(By.LinkText("Identity"));
         IWebElement lnkSecureNote => Driver.FindElement(By.LinkText("Secure Note"));
+        IWebElement btnAddItem => Driver.FindElement(By.CssSelector("body > app-root > app-user-layout > app-vault > div > div > div.col-6 > div > div > button"));
 
         public void ClickAllItems()
         {
@@ -50,6 +51,10 @@ namespace BitwardenAutomation.Pages
         public void ClickSecureNote()
         {
             lnkSecureNote.Click();
+        }
+        public void ClickAddItem()
+        {
+            btnAddItem.Click();
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using OpenQA.Selenium;
 using BitwardenAutomation.Utility;
-using OpenQA.Selenium.Interactions;
 
 
 namespace BitwardenAutomation.Pages
