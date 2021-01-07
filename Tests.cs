@@ -22,6 +22,7 @@ namespace BitwardenAutomation
         {  
             DriverHelper.InitBrowser();
             Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
+            ExternalData.filldatafromCsv();
         }
 
       
@@ -78,7 +79,7 @@ namespace BitwardenAutomation
             LoginPage loginPage = new LoginPage();
             VaultPage vaultPage = new VaultPage();
 
-            loginPage.EnterUserNameAndPassword(email, password);
+            loginPage.EnterUserNameAndPassword(Data.GetEmail(), Data.GetPassword());
             loginPage.ClickLogin();
 
             Thread.Sleep(3000);
