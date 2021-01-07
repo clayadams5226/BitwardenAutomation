@@ -81,34 +81,49 @@ namespace BitwardenAutomation
             loginPage.EnterUserNameAndPassword(email, password);
             loginPage.ClickLogin();
 
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            Thread.Sleep(3000);
 
             Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
             GetScreenshot.TakeScreenshot();
 
         }
-/*
+
         [Test, Order(3)]
-        public void SideBar()
+        public void AddItem()
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-
             VaultPage vaultPage = new VaultPage();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            vaultPage.ClickFavorites();
-            vaultPage.clickTrash();
-            vaultPage.ClickLogin();
-            vaultPage.ClickCard();
-            vaultPage.ClickIdentity();
-            vaultPage.ClickSecureNote();
-            vaultPage.ClickAllItems();
-
-            Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
-            GetScreenshot.TakeScreenshot();
+            vaultPage.ClickAddItem();
+            Thread.Sleep(3000);
+            AddItemPage addItem = new AddItemPage();
+            addItem.CreateItem("Login", "Clayton Automation", "Selenium", "Password01", "https://www.googe.com");
 
 
         }
-*/
+
+
+
+        /*
+                [Test, Order(3)]
+                public void SideBar()
+                {
+                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+                    VaultPage vaultPage = new VaultPage();
+                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                    vaultPage.ClickFavorites();
+                    vaultPage.clickTrash();
+                    vaultPage.ClickLogin();
+                    vaultPage.ClickCard();
+                    vaultPage.ClickIdentity();
+                    vaultPage.ClickSecureNote();
+                    vaultPage.ClickAllItems();
+
+                    Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/vault", "URL doesn't match");
+                    GetScreenshot.TakeScreenshot();
+
+
+                }
+        */
         [Test, Order(4)]
         public void LockVault()
         {

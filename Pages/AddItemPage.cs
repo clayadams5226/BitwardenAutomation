@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using OpenQA.Selenium;
 using BitwardenAutomation.Utility;
+using OpenQA.Selenium.Support.UI;
 
 namespace BitwardenAutomation.Pages
 {
-    class AddItem : DriverHelper
+    class AddItemPage : DriverHelper
     {
-        IWebElement ddlType => Driver.FindElement(By.Id("type"));
+        // IWebElement ddlType => Driver.FindElement(By.Id("type"));
+        SelectElement ddlType = new SelectElement(Driver.FindElement(By.Id("type")));
         IWebElement txtName => Driver.FindElement(By.Id("name"));
         IWebElement ddlFolder => Driver.FindElement(By.Id("folder"));
         IWebElement txtUsername => Driver.FindElement(By.Id("loginUsername"));
@@ -29,6 +31,18 @@ namespace BitwardenAutomation.Pages
         public void ClickCancel()
         {
             btnCancel.Click();
+        }
+        public void CreateItem(string type, string name, string username, string password, string url)
+        {
+            //SelectElement ddlType = new SelectElement(Driver.FindElement(By.Id("type")));
+
+            ddlType.SelectByText(type);
+            txtName.SendKeys(name);
+            txtUsername.SendKeys(username);
+            txtPassword.SendKeys(password);
+            txtURI1.SendKeys(url);
+            ClickSave();
+
         }
     }
 }
