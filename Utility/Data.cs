@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BitwardenAutomation.Utility
 {
-    public class Data : DriverHelper
+    public class Data
     {
         public static Data data;
         public static string email;
