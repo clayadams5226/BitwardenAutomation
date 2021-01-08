@@ -14,8 +14,6 @@ namespace BitwardenAutomation
 {
     public class Tests : DriverHelper
     {
-        string email = "cadams+test2@bitwarden.com";
-        string password = "password01";
 
         [OneTimeSetUp]
         public void Setup()
@@ -34,7 +32,7 @@ namespace BitwardenAutomation
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             loginPage.ClickHint();
-            hintPage.enterEmail("bitwarden@mailsac.com");
+            hintPage.enterEmail(Data.GetMailSacEmail());
             hintPage.clickSubmit();
             hintPage.clickCancel();
 
@@ -46,7 +44,7 @@ namespace BitwardenAutomation
 
             Driver.Navigate().GoToUrl("https://mailsac.com/login");
             MailSac mailSac = new MailSac();
-            mailSac.LogIn("mad5226", "password01");
+            mailSac.LogIn(Data.GetMailSacUser(), Data.GetPassword());
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             mailSac.ClickMaiBox();
             bool emailRecieved = mailSac.IsEmailReceived("Your Master Password Hint");
@@ -63,7 +61,7 @@ namespace BitwardenAutomation
             Driver.Navigate().GoToUrl("https://testdo.bitwarden.com");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             LoginPage loginPage = new LoginPage();
-            loginPage.EnterUserNameAndPassword(email, "password");
+            loginPage.EnterUserNameAndPassword(Data.GetInvalidEmail(), Data.GetPassword());
             loginPage.ClickLogin();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             Assert.IsTrue(loginPage.FailedLogin(), "Message not present.");
@@ -150,14 +148,14 @@ namespace BitwardenAutomation
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             loginPage.ClickCreate();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            account.enterAccountInfo("bitwarden2@mailsac.com", "Test Account 2", "password01", "The Hint");
+            account.enterAccountInfo(Data.GetNewAccountEmail(), "Test Account 2", Data.GetPassword(), "The Hint");
             account.ClickSubmit();
             account.ClickYesOnAlert();
 
 
             Driver.Navigate().GoToUrl("https://mailsac.com/login");
             MailSac mailSac = new MailSac();
-            mailSac.LogIn("mad5226", "password01");
+            mailSac.LogIn(Data.GetMailSacUser(), Data.GetPassword());
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             mailSac.ClickMailBox2();
             bool emailRecieved = mailSac.IsEmailReceived("Welcome");
@@ -177,17 +175,15 @@ namespace BitwardenAutomation
             LoginPage loginPage = new LoginPage();
             NavBar navBar = new NavBar();
             Settings settings = new Settings();
-            string emailAddress = "bitwarden2@mailsac.com";
-            string password = "password01";
 
-            loginPage.EnterUserNameAndPassword(emailAddress, password);
+            loginPage.EnterUserNameAndPassword(Data.GetNewAccountEmail(), Data.GetPassword());
             loginPage.ClickLogin();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             navBar.ClickMyAccount();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             settings.ClickDeleteAccount();
 
-            settings.ConfirmDeleteAccount(password);
+            settings.ConfirmDeleteAccount(Data.GetPassword());
             Thread.Sleep(3000);
             Assert.AreEqual(Driver.Url, "https://testdo.bitwarden.com/#/", "URL doesn't match");
         }

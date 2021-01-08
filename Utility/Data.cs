@@ -7,8 +7,12 @@ namespace BitwardenAutomation.Utility
     public class Data
     {
         public static Data data;
-        public static string email;
-        public static string password;
+        private static string email;
+        private static string password;
+        private static string invalidEmail;
+        private static string mailSacUser;
+        private static string mailSacEmail;
+        private static string newAccountEmail;
 
         public static Data GetData
         {
@@ -37,6 +41,39 @@ namespace BitwardenAutomation.Utility
         public static string GetPassword()
         {
             return password;
+        }
+
+        public static void SetInvalidEmail(string setInvalidEmail)
+        {
+            invalidEmail = setInvalidEmail;
+        }
+        public static string GetInvalidEmail()
+        {
+            return invalidEmail;
+        }
+        public static void SetMailSacUser(string setMailSacUser)
+        {
+            mailSacUser = setMailSacUser;
+        }
+        public static string GetMailSacUser()
+        {
+            return mailSacUser;
+        }
+        public static void SetMailSacEmail(string setMailSacEmail)
+        {
+            mailSacEmail = setMailSacEmail;
+        }
+        public static string GetMailSacEmail()
+        {
+            return mailSacEmail;
+        }
+        public static void SetNewAccountEmail(string setNewAccountEmail)
+        {
+            newAccountEmail = setNewAccountEmail;
+        }
+        public static string GetNewAccountEmail()
+        {
+            return newAccountEmail;
         }
     }
 }
